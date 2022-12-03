@@ -26,4 +26,7 @@ public class ProjectileController : MonoBehaviour {
             Ability);
     }
 
+    private void OnHitAnimationEnd() {
+        Destroy(gameObject);
+    }
 }
