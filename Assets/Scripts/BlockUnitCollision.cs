@@ -1,9 +1,9 @@
 using UnityEngine;
 
 public class BlockUnitCollision : MonoBehaviour {
-    [SerializeField] private Collider2D _blockerCollider;
+    public Collider2D BlockerCollider;
 
     void Start() {
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _blockerCollider, true);
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), BlockerCollider, true);
     }
 }

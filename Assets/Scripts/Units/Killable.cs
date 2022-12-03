@@ -28,7 +28,6 @@ public class Killable : MonoBehaviour {
     }
 
     public virtual void Die() {
-        Destroy(gameObject);
     }
 
     public void DidKill(Killable deadGuy) {

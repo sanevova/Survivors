@@ -9,7 +9,6 @@ public class UnitController : MonoBehaviour {
     private Rigidbody2D _body;
     private PlayerController _player;
     [HideInInspector] public Collider2D Collider;
-    private Collider2D _blockerCollider;
 
     private Hp _hp;
     private Animator _animator;
@@ -20,6 +19,7 @@ public class UnitController : MonoBehaviour {
     private void Awake() {
         _body = GetComponent<Rigidbody2D>();
         _hp = GetComponent<Hp>();
+        _hp.OnDeathCallback += OnDeath;
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _defaultMaterial = _spriteRenderer.material;
@@ -29,6 +29,9 @@ public class UnitController : MonoBehaviour {
 
 
     void Update() {
+        if (_hp.hpOwner.IsDead()) {
+            return;
+        }
         var calculatedSpeed = (transform.position - _previousFramePosiotion).magnitude / Time.deltaTime;
         Vector2 movementDirection = _player.transform.position - transform.position;
         if (movementDirection.magnitude < Mathf.Min(_playerProximityLimit.x, _playerProximityLimit.y)) {
@@ -60,5 +63,14 @@ public class UnitController : MonoBehaviour {
 
     public void StopFlash() {
         _spriteRenderer.material = _defaultMaterial;
+    }
+
+    public void OnDeath() {
+        Destroy(gameObject, 5f);
+        _animator.SetTrigger("Die");
+        _body.velocity = Vector2.zero;
+        _spriteRenderer.sortingOrder -= 1;
+        Collider.enabled = false;
+        GetComponent<BlockUnitCollision>().BlockerCollider.enabled = false;
     }
 }

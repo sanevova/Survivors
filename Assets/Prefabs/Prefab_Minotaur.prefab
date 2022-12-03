@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df978a37429211b43bbe51de074eec16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 50
+  maxHp: 30
   value: 0
   hpOwner: {fileID: 0}
 --- !u!50 &1486178470728968204
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1288b2f61728724ebd56c13a892fe4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blockerCollider: {fileID: 8547017627731579175}
+  BlockerCollider: {fileID: 8547017627731579175}
 --- !u!1 &5853276642393668801
 GameObject:
   m_ObjectHideFlags: 0
