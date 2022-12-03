@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using DG.Tweening;
 
@@ -61,5 +62,12 @@ public class PlayerController : MonoBehaviour {
 
     public void OnAbilityAnimation(AbilitySO scriptableAbility) {
         OnCastAnimationHandler?.Invoke(scriptableAbility);
+    }
+
+    public UnitController GetClosestEnemy() {
+        return FindObjectsOfType<UnitController>()
+            .Where(guy => guy != null && guy.IsAlive())
+            .OrderBy(guy => Vector3.Distance(transform.position, guy.transform.position))
+            .FirstOrDefault(x => x);
     }
 }

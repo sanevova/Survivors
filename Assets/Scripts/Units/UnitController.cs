@@ -73,4 +73,8 @@ public class UnitController : MonoBehaviour {
         Collider.enabled = false;
         GetComponent<BlockUnitCollision>().BlockerCollider.enabled = false;
     }
+
+    public bool IsAlive() {
+        return _hp.hpOwner.IsAlive();
+    }
 }
