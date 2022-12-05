@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class ProjectileController : MonoBehaviour {
+public class ProjectileController : TargetedAbilityController {
     [SerializeField] private float speed;
-    public Ability Ability;
 
     private bool _didProcDamage = false;
     private bool _shouldMove = true;
@@ -18,13 +17,9 @@ public class ProjectileController : MonoBehaviour {
             return;
         }
         _didProcDamage = true;
+        OnHit(other.GetComponent<UnitController>());
         GetComponent<Animator>().SetTrigger("Hit");
         transform.SetParent(other.transform);
         _shouldMove = false;
-        other.GetComponent<UnitController>().OnHitByAbility(Ability);
-    }
-
-    private void OnHitAnimationEnd() {
-        Destroy(gameObject);
     }
 }

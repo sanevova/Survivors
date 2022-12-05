@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using DG.Tweening;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour {
     [SerializeField] private float _movementSpeed;
@@ -65,9 +66,22 @@ public class PlayerController : MonoBehaviour {
     }
 
     public UnitController GetClosestEnemy() {
-        return FindObjectsOfType<UnitController>()
-            .Where(guy => guy != null && guy.IsAlive())
-            .OrderBy(guy => Vector3.Distance(transform.position, guy.transform.position))
-            .FirstOrDefault(x => x);
+        var aliveUnits = FindObjectsOfType<UnitController>()
+            .Where(guy => guy.IsAlive())
+            .OrderBy(guy => Vector3.Distance(transform.position, guy.transform.position));
+        if (aliveUnits.Any()) {
+            return aliveUnits.First();
+        }
+        return null;
+    }
+
+    public UnitController GetRandomEnemy() {
+        var allUnits = FindObjectsOfType<UnitController>()
+            .Where(guy => guy.IsAlive())
+            .ToArray();
+        if (allUnits.Any()) {
+            return allUnits[Random.Range(0, allUnits.Count())];
+        }
+        return null;
     }
 }

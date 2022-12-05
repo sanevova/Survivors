@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47846cd7c23aab145b97691ecd6d0ba5, type: 3}
-  m_Name: Projectile_Ice
+  m_Name: Thunderstrike
   m_EditorClassIdentifier: 
-  displayName: Ice Bolt
-  abilityType: 1
-  targetingType: 0
-  cooldown: 2
-  damage: 10
+  displayName: Thunderstrike
+  abilityType: 2
+  targetingType: 1
+  cooldown: 3
+  damage: 100
   hitboxSize: {x: 0, y: 0}
-  prefab: {fileID: 3193642017599875186, guid: e8f90b6e0aa5d2a49a1d2611e7241b76, type: 3}
+  prefab: {fileID: 894750111530604717, guid: 8aa80521bf6184a47ac9995a97ed4697, type: 3}

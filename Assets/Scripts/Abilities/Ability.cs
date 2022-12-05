@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class Ability {
@@ -36,17 +37,45 @@ public class Ability {
     public void Cast(Animator animator = null) {
         _lastCastTime = Time.time;
         if (AbilityScriptable.abilityType == AbilityType.Projectile) {
-            Vector2 closestEnemyPosition = Caster.GetClosestEnemy().transform.position;
-            ProjectileController projectile = Object.Instantiate(
-                AbilityScriptable.projectile,
+            UnitController target = PickTarget();
+            if (target == null) {
+                return;
+            }
+            TargetedAbilityController projectile = Object.Instantiate(
+                AbilityScriptable.prefab,
                 Caster.transform.position,
-                LookAtRotation(Caster.transform.position, closestEnemyPosition));
+                LookAtRotation(Caster.transform.position, target.transform.position));
             projectile.Ability = this;
+            return;
+        }
+        if (AbilityScriptable.abilityType == AbilityType.DirectlyTargeted) {
+            UnitController target = PickTarget();
+            if (target == null) {
+                return;
+            }
+            var colliderBounds = target.Collider.bounds;
+            var colliderBottom = colliderBounds.min + Vector3.right * colliderBounds.extents.x;
+            TargetedAbilityController abilityObject = Object.Instantiate(
+                AbilityScriptable.prefab,
+                colliderBottom,
+                Quaternion.identity,
+                parent: target.transform);
+            abilityObject.Ability = this;
             return;
         }
         if (AbilityScriptable.abilityType == AbilityType.AroundCaster) {
             animator?.Play($"Animation_Player_{AbilityScriptable.displayName}");
         }
+    }
+
+    private UnitController PickTarget() {
+        if (AbilityScriptable.targetingType == AbilityTargetingType.Closest) {
+            return Caster.GetClosestEnemy();
+        }
+        if (AbilityScriptable.targetingType == AbilityTargetingType.Random) {
+            return Caster.GetRandomEnemy();
+        }
+        return null;
     }
 
 #if UNITY_EDITOR
