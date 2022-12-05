@@ -72,7 +72,7 @@ public class Ability {
             foreach (var unit in Object.FindObjectsOfType<UnitController>()) {
                 Bounds aoe = new(Caster.transform.position, AbilityScriptable.hitboxSize);
                 if (aoe.Intersects(unit.Collider.bounds)) {
-                    unit.OnHitByAbility(Caster.GetComponent<Killable>(), this);
+                    unit.OnHitByAbility(this);
                 }
             }
         }

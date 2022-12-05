@@ -233,7 +233,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 75535433059873905, guid: b62b45ff3e3663e4493427750d5da1a2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b62b45ff3e3663e4493427750d5da1a2, type: 3}
 --- !u!1 &519420028
 GameObject:
@@ -508,7 +509,6 @@ GameObject:
   - component: {fileID: 783188717}
   - component: {fileID: 783188719}
   - component: {fileID: 783188721}
-  - component: {fileID: 783188723}
   - component: {fileID: 783188722}
   - component: {fileID: 783188720}
   m_Layer: 7
@@ -686,20 +686,6 @@ MonoBehaviour:
   maxHp: 100
   value: 0
   hpOwner: {fileID: 0}
---- !u!114 &783188723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 783188715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce96ba8c58fbcdc489291f8a87e0701e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  killRewardGold: 0
-  hp: {fileID: 0}
 --- !u!4 &928657181 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 75535433059873916, guid: b62b45ff3e3663e4493427750d5da1a2, type: 3}

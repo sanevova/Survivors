@@ -52,8 +52,8 @@ public class UnitController : MonoBehaviour {
         _previousFramePosiotion = transform.position;
     }
 
-    public void OnHitByAbility(Killable caster, Ability ability) {
-        _hp.TakeDamageFrom(caster, ability.AbilityScriptable.damage);
+    public void OnHitByAbility(Ability ability) {
+        _hp.TakeDamageFrom(ability.AbilityScriptable.damage);
         _animator.SetTrigger("Hurt");
     }
 
@@ -75,6 +75,10 @@ public class UnitController : MonoBehaviour {
     }
 
     public bool IsAlive() {
-        return _hp.hpOwner.IsAlive();
+        return _hp?.value > 0;
+    }
+
+    public bool IsDead() {
+        return !IsAlive();
     }
 }

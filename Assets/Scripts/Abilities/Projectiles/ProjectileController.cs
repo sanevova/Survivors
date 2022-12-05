@@ -21,9 +21,7 @@ public class ProjectileController : MonoBehaviour {
         GetComponent<Animator>().SetTrigger("Hit");
         transform.SetParent(other.transform);
         _shouldMove = false;
-        other.GetComponent<UnitController>().OnHitByAbility(
-            Ability.Caster.GetComponent<Killable>(),
-            Ability);
+        other.GetComponent<UnitController>().OnHitByAbility(Ability);
     }
 
     private void OnHitAnimationEnd() {
