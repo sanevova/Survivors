@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4799412445eb5f43bb84ead412e8df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 0.8
+  _movementSpeed: 1
   _playerProximityLimit: {x: 1, y: 0.5}
   FlashMaterial: {fileID: 2100000, guid: 4e4551acfae38284e8840f3dc334982a, type: 2}
   Collider: {fileID: 0}

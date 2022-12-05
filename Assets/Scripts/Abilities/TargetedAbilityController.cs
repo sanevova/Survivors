@@ -6,6 +6,9 @@ public abstract class TargetedAbilityController : MonoBehaviour {
     public sealed class AbilityNotAssignedException : System.Exception { }
 
     protected void OnHit(UnitController target) {
+        if (target.IsDead()) {
+            return;
+        }
         if (Ability == null) {
             throw new AbilityNotAssignedException();
         }

@@ -80,7 +80,6 @@ public class Ability {
 
 #if UNITY_EDITOR
     private static GameObject _debugHitbox = null;
-
 #endif
 
     private void OnCastAnimation(AbilitySO castedAbilityScriptable) {
@@ -88,6 +87,7 @@ public class Ability {
             return;
         }
 #if UNITY_EDITOR
+        // draw debug rect
         if (_debugHitbox == null) {
             _debugHitbox = GameObject.CreatePrimitive(PrimitiveType.Quad);
             _debugHitbox.GetComponent<Collider>().enabled = false;
@@ -95,13 +95,12 @@ public class Ability {
             _debugHitbox.GetComponent<Renderer>().material = PlayerController.DebugMaterial;
         }
         _debugHitbox.transform.position = Caster.transform.position + Vector3.back;
-
 #endif
         if (AbilityScriptable.abilityType == AbilityType.AroundCaster) {
-            foreach (var unit in Object.FindObjectsOfType<UnitController>()) {
+            foreach (var enemy in Caster.GetAllEnemies()) {
                 Bounds aoe = new(Caster.transform.position, AbilityScriptable.hitboxSize);
-                if (aoe.Intersects(unit.Collider.bounds)) {
-                    unit.OnHitByAbility(this);
+                if (aoe.Intersects(enemy.Collider.bounds)) {
+                    enemy.OnHitByAbility(this);
                 }
             }
         }

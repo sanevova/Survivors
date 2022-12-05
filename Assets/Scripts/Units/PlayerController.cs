@@ -67,8 +67,8 @@ public class PlayerController : MonoBehaviour {
 
     public UnitController GetClosestEnemy() {
         var aliveUnits = FindObjectsOfType<UnitController>()
-            .Where(guy => guy.IsAlive())
-            .OrderBy(guy => Vector3.Distance(transform.position, guy.transform.position));
+            .Where(enemy => enemy.IsAlive())
+            .OrderBy(enemy => Vector3.Distance(transform.position, enemy.transform.position));
         if (aliveUnits.Any()) {
             return aliveUnits.First();
         }
@@ -76,12 +76,15 @@ public class PlayerController : MonoBehaviour {
     }
 
     public UnitController GetRandomEnemy() {
-        var allUnits = FindObjectsOfType<UnitController>()
-            .Where(guy => guy.IsAlive())
-            .ToArray();
-        if (allUnits.Any()) {
-            return allUnits[Random.Range(0, allUnits.Count())];
+        var allEnemies = GetAllEnemies().ToArray();
+        if (allEnemies.Any()) {
+            return allEnemies[Random.Range(0, allEnemies.Count())];
         }
         return null;
+    }
+
+    public IEnumerable<UnitController> GetAllEnemies() {
+        return FindObjectsOfType<UnitController>()
+            .Where(enemy => enemy.IsAlive());
     }
 }
