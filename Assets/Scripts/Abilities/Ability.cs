@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Ability {
     public AbilitySO AbilityScriptable;
-    private float _lastCastTime;
     public PlayerController Caster;
+
+    private float _lastCastTime;
+    private TargetedAbilityController _projectile = null;
 
     public Ability(AbilitySO scriptable, PlayerController caster) {
         AbilityScriptable = scriptable;
@@ -25,12 +27,11 @@ public class Ability {
     }
 
     private Quaternion LookAtRotation(Vector2 src, Vector2 dst) {
-
         float angle = AngleBetweenPoints(src, dst);
         return Quaternion.Euler(new Vector3(0f, 0f, angle));
     }
 
-    private float AngleBetweenPoints(Vector2 a, Vector2 b) {
+    public float AngleBetweenPoints(Vector2 a, Vector2 b) {
         return Mathf.Atan2(b.y - a.y, b.x - a.x) * Mathf.Rad2Deg;
     }
 
@@ -41,11 +42,16 @@ public class Ability {
             if (target == null) {
                 return;
             }
-            TargetedAbilityController projectile = Object.Instantiate(
+            if (AbilityScriptable.IsOrbiting() && _projectile != null) {
+                // don't spawn another orbiting projectile if one already exists
+                // will wait for another cooldown
+                return;
+            }
+            _projectile = Object.Instantiate(
                 AbilityScriptable.prefab,
                 Caster.transform.position,
                 LookAtRotation(Caster.transform.position, target.transform.position));
-            projectile.Ability = this;
+            _projectile.Ability = this;
             return;
         }
         if (AbilityScriptable.abilityType == AbilityType.DirectlyTargeted) {

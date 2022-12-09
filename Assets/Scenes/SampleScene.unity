@@ -584,6 +584,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8883982f4b35302479c2aad6b7d5eeea, type: 2}
   - {fileID: 11400000, guid: ec687b95883807b4f8bf285ebb94e2f7, type: 2}
   - {fileID: 11400000, guid: ff7f58a41faa7bb4fab1a9e3bccbbb54, type: 2}
+  - {fileID: 11400000, guid: 13afd2729c284734db745c9ef53ac8a3, type: 2}
   _debugMaterial: {fileID: 2100000, guid: 23a18cb6bd83702408fa64b6116c1dd3, type: 2}
 --- !u!61 &783188721
 BoxCollider2D:

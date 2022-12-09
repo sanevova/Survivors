@@ -20,4 +20,10 @@ public class AbilitySO : ScriptableObject {
     public int damage;
     public Vector2 hitboxSize;
     public TargetedAbilityController prefab;
+    public float speed;
+    public float orbitingRadius;
+
+    public bool IsOrbiting() {
+        return orbitingRadius > Mathf.Epsilon;
+    }
 }
