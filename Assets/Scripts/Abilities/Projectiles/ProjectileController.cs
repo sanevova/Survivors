@@ -21,7 +21,7 @@ public class ProjectileController : TargetedAbilityController {
             return;
         }
         _didProcDamage = true;
-        OnHit(other.GetComponent<UnitController>());
+        OnHit(other.GetComponent<AbilityCaster>());
         GetComponent<Animator>().SetTrigger("Hit");
         transform.SetParent(other.transform);
         _shouldMove = false;

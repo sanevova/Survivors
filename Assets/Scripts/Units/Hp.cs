@@ -24,4 +24,12 @@ public class Hp : MonoBehaviour {
             OnDeathCallback?.Invoke();
         }
     }
+
+    public bool IsAlive() {
+        return value > 0;
+    }
+
+    public bool IsDead() {
+        return !IsAlive();
+    }
 }

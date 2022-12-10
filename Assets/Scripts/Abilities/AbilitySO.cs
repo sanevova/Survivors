@@ -19,6 +19,7 @@ public class AbilitySO : ScriptableObject {
     public float cooldown;
     public int damage;
     public Vector2 hitboxSize;
+    public AnimationClip animationClip;
     public TargetedAbilityController prefab;
     public float speed;
     public float orbitingRadius;

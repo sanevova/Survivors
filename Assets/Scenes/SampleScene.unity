@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 783188721}
   - component: {fileID: 783188722}
   - component: {fileID: 783188720}
+  - component: {fileID: 783188723}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -580,11 +581,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 5
   _dashLength: 3
-  _abilitieScriptables:
-  - {fileID: 11400000, guid: 8883982f4b35302479c2aad6b7d5eeea, type: 2}
-  - {fileID: 11400000, guid: ec687b95883807b4f8bf285ebb94e2f7, type: 2}
-  - {fileID: 11400000, guid: ff7f58a41faa7bb4fab1a9e3bccbbb54, type: 2}
-  - {fileID: 11400000, guid: 13afd2729c284734db745c9ef53ac8a3, type: 2}
   _debugMaterial: {fileID: 2100000, guid: 23a18cb6bd83702408fa64b6116c1dd3, type: 2}
 --- !u!61 &783188721
 BoxCollider2D:
@@ -624,9 +620,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df978a37429211b43bbe51de074eec16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
+  maxHp: 5000
   value: 0
   hpOwner: {fileID: 0}
+--- !u!114 &783188723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783188715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9de98fa0b22a3846b60184b009434e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _abilityScriptables:
+  - {fileID: 11400000, guid: 13afd2729c284734db745c9ef53ac8a3, type: 2}
+  - {fileID: 11400000, guid: 8883982f4b35302479c2aad6b7d5eeea, type: 2}
 --- !u!1001 &900127950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -682,6 +693,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4073373207232493112, guid: 4bd5ea74ba5191744846a3b6962ddeef, type: 3}
+      propertyPath: _abilityScriptables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073373207232493112, guid: 4bd5ea74ba5191744846a3b6962ddeef, type: 3}
+      propertyPath: _abilityScriptables.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 76e5bfc87a67d2946a54ee1489cf6bf6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bd5ea74ba5191744846a3b6962ddeef, type: 3}
 --- !u!1 &1299641773

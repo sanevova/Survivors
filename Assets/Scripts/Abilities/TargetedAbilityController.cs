@@ -5,7 +5,7 @@ public abstract class TargetedAbilityController : MonoBehaviour {
 
     public sealed class AbilityNotAssignedException : System.Exception { }
 
-    protected void OnHit(UnitController target) {
+    protected void OnHit(AbilityCaster target) {
         if (target.IsDead()) {
             return;
         }

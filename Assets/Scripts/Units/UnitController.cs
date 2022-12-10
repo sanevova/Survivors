@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Hp))]
+[RequireComponent(typeof(UnitAbilityCaster))]
 public class UnitController : MonoBehaviour {
     [SerializeField] private float _movementSpeed;
     [SerializeField] private Vector2 _playerProximityLimit = new(1f, 0.5f);
@@ -29,7 +30,7 @@ public class UnitController : MonoBehaviour {
 
 
     void Update() {
-        if (_hp.hpOwner.IsDead()) {
+        if (_hp.IsDead()) {
             return;
         }
         var calculatedSpeed = (transform.position - _previousFramePosiotion).magnitude / Time.deltaTime;
@@ -47,14 +48,21 @@ public class UnitController : MonoBehaviour {
 
         if (movementDirection.x != 0) {
             _spriteRenderer.flipX = movementDirection.x < 0;
+            // don't flip if spinning
+            if (IsSpinning()) {
+                _spriteRenderer.flipX = false;
+            }
         }
         _animator.SetBool("IsRunning", calculatedSpeed > 0.1f);
         _previousFramePosiotion = transform.position;
     }
 
-    public void OnHitByAbility(Ability ability) {
-        _hp.TakeDamageFrom(ability.AbilityScriptable.damage);
-        _animator.SetTrigger("Hurt");
+    private bool IsSpinning() {
+        var currentClipInfos = _animator.GetCurrentAnimatorClipInfo(0);
+        if (currentClipInfos.Length == 0) {
+            return false;
+        }
+        return currentClipInfos[0].clip.name.EndsWith("Spin_Repeating");
     }
 
     public void StartFlash() {
@@ -72,13 +80,5 @@ public class UnitController : MonoBehaviour {
         _spriteRenderer.sortingOrder -= 1;
         Collider.enabled = false;
         GetComponent<BlockUnitCollision>().BlockerCollider.enabled = false;
-    }
-
-    public bool IsAlive() {
-        return _hp?.value > 0;
-    }
-
-    public bool IsDead() {
-        return !IsAlive();
     }
 }

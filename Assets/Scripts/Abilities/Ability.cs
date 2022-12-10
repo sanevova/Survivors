@@ -1,18 +1,18 @@
-using System.Linq;
 using UnityEngine;
 
 public class Ability {
     public AbilitySO AbilityScriptable;
-    public PlayerController Caster;
+    public AbilityCaster Caster;
 
     private float _lastCastTime;
     private TargetedAbilityController _projectile = null;
+    public System.Action<Ability, AbilityCaster> OnHitEnemyHandler;
 
-    public Ability(AbilitySO scriptable, PlayerController caster) {
+    public Ability(AbilitySO scriptable, AbilityCaster caster) {
         AbilityScriptable = scriptable;
         _lastCastTime = Time.time;
         Caster = caster;
-        PlayerController.OnCastAnimationHandler += OnCastAnimation;
+        caster.OnCastAnimationHandler += OnCastAnimation;
     }
 
     public bool IsOnCooldown() {
@@ -38,7 +38,7 @@ public class Ability {
     public void Cast(Animator animator = null) {
         _lastCastTime = Time.time;
         if (AbilityScriptable.abilityType == AbilityType.Projectile) {
-            UnitController target = PickTarget();
+            AbilityCaster target = PickTarget();
             if (target == null) {
                 return;
             }
@@ -55,7 +55,7 @@ public class Ability {
             return;
         }
         if (AbilityScriptable.abilityType == AbilityType.DirectlyTargeted) {
-            UnitController target = PickTarget();
+            AbilityCaster target = PickTarget();
             if (target == null) {
                 return;
             }
@@ -70,11 +70,11 @@ public class Ability {
             return;
         }
         if (AbilityScriptable.abilityType == AbilityType.AroundCaster) {
-            animator?.Play($"Animation_Player_{AbilityScriptable.displayName}");
+            animator?.Play(AbilityScriptable.animationClip.name);
         }
     }
 
-    private UnitController PickTarget() {
+    private AbilityCaster PickTarget() {
         if (AbilityScriptable.targetingType == AbilityTargetingType.Closest) {
             return Caster.GetClosestEnemy();
         }
@@ -106,7 +106,7 @@ public class Ability {
             foreach (var enemy in Caster.GetAllEnemies()) {
                 Bounds aoe = new(Caster.transform.position, AbilityScriptable.hitboxSize);
                 if (aoe.Intersects(enemy.Collider.bounds)) {
-                    enemy.OnHitByAbility(this);
+                    OnHitEnemyHandler?.Invoke(this, enemy);
                 }
             }
         }
