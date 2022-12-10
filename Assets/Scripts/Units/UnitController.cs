@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Hp))]
@@ -16,6 +17,8 @@ public class UnitController : MonoBehaviour {
     private SpriteRenderer _spriteRenderer;
     private Material _defaultMaterial;
     private Vector3 _previousFramePosiotion;
+    private float _originalMovementSpeed;
+
 
     private void Awake() {
         _body = GetComponent<Rigidbody2D>();
@@ -26,6 +29,7 @@ public class UnitController : MonoBehaviour {
         _defaultMaterial = _spriteRenderer.material;
         _player = FindObjectOfType<PlayerController>();
         Collider = GetComponent<Collider2D>();
+        _originalMovementSpeed = _movementSpeed;
     }
 
 
@@ -80,5 +84,19 @@ public class UnitController : MonoBehaviour {
         _spriteRenderer.sortingOrder -= 1;
         Collider.enabled = false;
         GetComponent<BlockUnitCollision>().BlockerCollider.enabled = false;
+    }
+
+    public void SpeedUpForSeconds(float newSpeed, float duration) {
+        if (_movementSpeed != _originalMovementSpeed) {
+            return;
+        }
+        StartCoroutine(SpeedUpForSecondsCoroutine(newSpeed, duration));
+    }
+
+    private IEnumerator SpeedUpForSecondsCoroutine(float newSpeed, float duration) {
+        _originalMovementSpeed = _movementSpeed;
+        _movementSpeed = newSpeed;
+        yield return new WaitForSeconds(duration);
+        _movementSpeed = _originalMovementSpeed;
     }
 }

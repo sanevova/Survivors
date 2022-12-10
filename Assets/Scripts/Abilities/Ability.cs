@@ -71,6 +71,11 @@ public class Ability {
         }
         if (AbilityScriptable.abilityType == AbilityType.AroundCaster) {
             animator?.Play(AbilityScriptable.animationClip.name);
+            if (AbilityScriptable.displayName == "Minotaur Spin") {
+                Caster.GetComponent<UnitController>().SpeedUpForSeconds(
+                    AbilityScriptable.speed,
+                    AbilityScriptable.animationClip.averageDuration);
+            }
         }
     }
 

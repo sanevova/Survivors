@@ -20,5 +20,5 @@ MonoBehaviour:
   hitboxSize: {x: 2, y: 1}
   animationClip: {fileID: 7400000, guid: 4d6b0712a7faeb04d90cc638aa02459c, type: 2}
   prefab: {fileID: 0}
-  speed: 0
+  speed: 4
   orbitingRadius: 0
